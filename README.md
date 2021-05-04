@@ -2,7 +2,7 @@
 
 ## flatten
 
-yarn hardhat flatten ./contracts/ThreeSpace.sol > ./contracts/ThreeSpace.sol
+yarn hardhat flatten ./contracts/ThreeSpace.sol > ./contracts/ThreeSpaceFlatten.sol
 
 ## Version
 
