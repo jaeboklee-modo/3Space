@@ -1,0 +1,13 @@
+{
+    "name":"Puppy Gif",
+    "description":"Cute puppy",
+    "image":"https://ipfs.io/ipfs/QmUxKUDJMrfQEb8vfL2nJnSvNUEukdHkqs9fnrD7D9jVRW?filename=puppy.gif",
+    "external_url":"https://elysia.land/",
+    "attributes":[
+    {
+    "key":"Georgia coffee",
+    "trait_type":"Georgia",
+    "value":"3 ether"
+    }
+    ]
+    }
