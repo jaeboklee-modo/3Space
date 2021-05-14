@@ -1334,7 +1334,7 @@ contract ERC721MetadataMintable is ERC721, ERC721Metadata, MinterRole {
 
 // File contracts/ThreeSpace.sol
 
-pragma solidity ^0.5.0;
+pragma solidity 0.5.6;
 
 
 
@@ -1342,19 +1342,63 @@ contract ThreeSpace is ERC721Full, ERC721MetadataMintable {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
 
-    event Paint(address to);
+    event Paint(
+        address indexed to,
+        uint256 tokenId,
+        string artist,
+        string title);
+
+    mapping (uint256 => string) public artist;
+
+    mapping (uint256 => string) public title;
+
+    string public officialSite;
 
     constructor() ERC721Full("3SPACE ART", "SPACE") public {
+        officialSite = "http://3space.art/";
     }
 
-    function paint(address to, string memory tokenURI) public returns (bool) {
+    function paint(
+        address to,
+        string memory tokenURI,
+        string memory artist_,
+        string memory title_
+    ) public returns (bool) {
+
         _tokenIds.increment();
 
         uint256 newItemId = _tokenIds.current();
 
         mintWithTokenURI(to, newItemId, tokenURI);
 
-        emit Paint(to);
+        _setArtworkInformation(newItemId, artist_, title_);
+
+        emit Paint(to, newItemId, artist_, title_);
         return true;
+    }
+
+    function _setArtworkInformation(
+        uint256 id,
+        string memory artist_,
+        string memory title_
+    ) internal {
+        artist[id] = artist_;
+        title[id] = title_;
+    }
+
+    function setOfficialSite(
+        string memory newOfficialSite
+    ) public onlyMinter {
+        officialSite = newOfficialSite;
+    }
+
+    function changeArtworkInformation(
+        uint256 id,
+        string memory tokenURI,
+        string memory artist_,
+        string memory title_
+    ) public onlyMinter {
+        _setArtworkInformation(id, artist_, title_);
+        _setTokenURI(id, tokenURI);
     }
 }
